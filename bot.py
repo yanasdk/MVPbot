@@ -11,10 +11,10 @@ bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 logging.basicConfig(level=logging.INFO)
 
-# Кнопка "Открыть портфолио"
+# Кнопка "Open Portfolio"
 portfolio_keyboard = types.InlineKeyboardMarkup()
 portfolio_keyboard.add(types.InlineKeyboardButton(
-    text="📁 Открыть моё портфолио",
+    text="🚀 See 15-Minute Magic",
     web_app=types.WebAppInfo(url=LANDING_URL)
 ))
 
@@ -22,9 +22,21 @@ portfolio_keyboard.add(types.InlineKeyboardButton(
 @dp.message_handler(commands=['start'])
 async def send_welcome(message: types.Message):
     await message.answer(
-        "Привет! Я бот-портфолио Яны Сидиковой. Был сделан за 15 минут :)\n\n"
-        "Нажмите кнопку ниже, чтобы увидеть примеры работ 👇",
+        "Hey there! 👋 I'm Yana's MVP Bot.\n\n"
+        "I was born in just 1 hour to prove one thing: when there's a cool project idea, "
+        "I don't overthink - I build.\n\n"
+        "This whole landing? Coded in 15 mins. Wrapped in a bot? Another 10. "
+        "Deployed? While my coffee was still hot.\n\n"
+        "Wanna see what I can build in 2 weeks with proper sleep? 😉",
         reply_markup=portfolio_keyboard
+    )
+
+# Обработка данных из WebApp
+@dp.message_handler(content_types=['web_app_data'])
+async def handle_web_app_data(message: types.Message):
+    await message.answer(
+        "Psst... The real magic? I'm just the demo. My creator can ship *real* MVPs "
+        "faster than you can say 'scope creep'. Ping her → @yanasidikova"
     )
 
 # Запуск бота
